@@ -17,6 +17,6 @@ public class WeatherFacade
     public String getWeatherData(String address) 
     {
         Coordinate coords = mGeocodingService.getCoordinate(address);
-        return mWeatherService.getForecast(coords.getLatitude(), coords.getLatitude());
+        return mWeatherService.getForecast(coords.getLatitude(), coords.getLongitude());
     }
 }
