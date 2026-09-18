@@ -2,4 +2,7 @@
 I had to do this for shool #pray #wilted-rose
 
 ## hot to start
-mvn spring-boot:run
+./script/start.sh
+
+## Mail prof
+paussel@now-code.fr

@@ -1,1 +1,13 @@
+com/example/apimeteo/clients/MetNorwayWeatherClient.class
+com/example/apimeteo/facades/WeatherFacade.class
+com/example/apimeteo/controllers/WeatherController.class
+com/example/apimeteo/clients/BanGeocodingClient$Feature.class
+com/example/apimeteo/services/WeatherService.class
+com/example/apimeteo/clients/BanGeocodingClient.class
+com/example/apimeteo/services/GeocodingService.class
 com/example/apimeteo/WeatherApplication.class
+com/example/apimeteo/models/Coordinate.class
+com/example/apimeteo/clients/NominatimClient.class
+com/example/apimeteo/clients/BanGeocodingClient$Geometry.class
+com/example/apimeteo/clients/BanGeocodingClient$BanResponseDto.class
+com/example/apimeteo/clients/OpenMeteoClient.class

@@ -7,11 +7,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Locale;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.example.apimeteo.services.WeatherService;
 
 @Component
+@ConditionalOnProperty(name = "weather.provider", havingValue = "open-meteo", matchIfMissing = true)
 public class OpenMeteoClient implements WeatherService{
     private final HttpClient mHttpClient = HttpClient.newHttpClient();
 

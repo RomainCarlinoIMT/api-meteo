@@ -8,13 +8,15 @@ import java.net.http.HttpResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.example.apimeteo.models.Coordinate;
 import com.example.apimeteo.services.GeocodingService;
 
-@Component 
-public class NominatimClient implements  GeocodingService
+@Component
+@ConditionalOnProperty(name = "geo.provider", havingValue = "nominatim", matchIfMissing = true)
+public class NominatimClient implements GeocodingService
 {
     private final HttpClient mHttpClient = HttpClient.newHttpClient();
     private static final String URL = "https://nominatim.openstreetmap.org/search?q=";
@@ -45,7 +47,7 @@ public class NominatimClient implements  GeocodingService
 
     private Coordinate parsCoordinateFromJson(String json)
     {
-        System.out.println("Tried to use fonction with : " + json);
+        System.out.println("Tried to use function with : " + json);
         try {
         Pattern latPattern = Pattern.compile("\"lat\"\\s*:\\s*\"([^\"]+)\"");
         Pattern lonPattern = Pattern.compile("\"lon\"\\s*:\\s*\"([^\"]+)\"");

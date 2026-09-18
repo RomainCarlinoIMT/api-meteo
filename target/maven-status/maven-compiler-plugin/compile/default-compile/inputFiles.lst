@@ -3,6 +3,8 @@
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/OpenMeteoClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/NominatimClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/GeocodingService.java
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/BanGeocodingClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/controllers/WeatherController.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/facades/WeatherFacade.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/WeatherApplication.java
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/MetNorwayWeatherClient.java
