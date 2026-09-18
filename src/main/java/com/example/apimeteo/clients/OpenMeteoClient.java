@@ -1,4 +1,4 @@
-package clients;
+package com.example.apimeteo.clients;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,8 +7,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Locale;
 
-import service.WeatherService;
+import org.springframework.stereotype.Component;
 
+import com.example.apimeteo.services.WeatherService;
+
+@Component
 public class OpenMeteoClient implements WeatherService{
     private final HttpClient mHttpClient = HttpClient.newHttpClient();
 

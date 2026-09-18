@@ -1,8 +1,12 @@
-package interfaces;
-import models.Coordinate;
-import service.GeocodingService;
-import service.WeatherService;
+package com.example.apimeteo.facades;
 
+import org.springframework.stereotype.Service;
+
+import com.example.apimeteo.models.Coordinate;
+import com.example.apimeteo.services.GeocodingService;
+import com.example.apimeteo.services.WeatherService;
+
+@Service
 public class WeatherFacade 
 {
     private final GeocodingService mGeocodingService;

@@ -1,4 +1,4 @@
-package clients;
+package com.example.apimeteo.clients;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,10 +8,12 @@ import java.net.http.HttpResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import models.Coordinate;
+import org.springframework.stereotype.Component;
 
-import service.GeocodingService;
+import com.example.apimeteo.models.Coordinate;
+import com.example.apimeteo.services.GeocodingService;
 
+@Component 
 public class NominatimClient implements  GeocodingService
 {
     private final HttpClient mHttpClient = HttpClient.newHttpClient();

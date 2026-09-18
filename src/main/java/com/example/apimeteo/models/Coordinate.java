@@ -1,4 +1,4 @@
-package models;
+package com.example.apimeteo.models;
 
 public class Coordinate {
     private Double mLatitude;
