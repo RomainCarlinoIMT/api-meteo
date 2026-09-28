@@ -47,7 +47,7 @@ public class NominatimClient implements GeocodingService
 
     private Coordinate parsCoordinateFromJson(String json)
     {
-        System.out.println("Tried to use function with : " + json);
+        System.out.println("(Nominatim) Tried to use function with : " + json);
         try {
         Pattern latPattern = Pattern.compile("\"lat\"\\s*:\\s*\"([^\"]+)\"");
         Pattern lonPattern = Pattern.compile("\"lon\"\\s*:\\s*\"([^\"]+)\"");

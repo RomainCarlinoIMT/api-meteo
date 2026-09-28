@@ -11,6 +11,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,10 +38,11 @@ public class WeatherIntegrationTest {
         WireMock.stubFor(WireMock.get(WireMock.urlPathMatching("/weather.*"))
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
-                        .withBody("{\"properties\":{\"timeseries\":[]}}")));
+                .withBody("{\"properties\":{\"timeseries\":[{\"time\":\"2025-06-10T14:00:00Z\",\"data\":{\"instant\":{\"details\":{\"air_temperature\":24.3}}}}]}}")));
 
         mockMvc.perform(get("/weather").param("address", "Alès"))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(content().json("{\"address\":\"Alès\",\"latitude\":44.12,\"longitude\":4.08,\"hourly\":[{\"time\":\"2025-06-10T14:00:00Z\",\"temperatureCelsius\":24.3}]}", true));
     }
 
     @Test

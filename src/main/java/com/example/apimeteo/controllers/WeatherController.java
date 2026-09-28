@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.apimeteo.facades.WeatherFacade;
+import com.example.apimeteo.models.WeatherResponse;
 
 @RestController
 public class WeatherController {
@@ -15,7 +16,7 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public String getWeather(@RequestParam("address") String address) {
+    public WeatherResponse getWeather(@RequestParam("address") String address) {
         return weatherFacade.getWeatherData(address);
     }
 }

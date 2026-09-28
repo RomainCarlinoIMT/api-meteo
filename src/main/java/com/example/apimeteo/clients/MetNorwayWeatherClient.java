@@ -5,11 +5,18 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import com.example.apimeteo.models.HourlyForecast;
 import com.example.apimeteo.services.WeatherService;
 
 @Component
@@ -17,13 +24,20 @@ import com.example.apimeteo.services.WeatherService;
 public class MetNorwayWeatherClient implements WeatherService 
 {
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final ObjectMapper objectMapper;
+    @Value("${metnorway.api.url:https://api.met.no}")
+    private String apiUrl;
+
+    public MetNorwayWeatherClient(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
-    public String getForecast(Double latitude, Double longitude)
+    public List<HourlyForecast> getForecast(Double latitude, Double longitude)
     {
         String url = String.format(Locale.US, 
-                "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=%.4f&lon=%.4f", 
-                latitude, longitude);
+                "%s/weatherapi/locationforecast/2.0/compact?lat=%.4f&lon=%.4f",
+                apiUrl, latitude, longitude);
         
         HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -40,12 +54,36 @@ public class MetNorwayWeatherClient implements WeatherService
                 throw new RuntimeException("Error from MET Norway API with code : " + response.statusCode());
             }
 
-            return response.body();
+            return parseForecast(response.body());
         } 
         catch (IOException | InterruptedException ex)
         {
             ex.printStackTrace();
             throw new RuntimeException("Failed to query MET Norway API", ex);
+        }
+    }
+
+    private List<HourlyForecast> parseForecast(String json) {
+        try {
+            JsonNode timeseries = objectMapper.readTree(json)
+                    .path("properties")
+                    .path("timeseries");
+            List<HourlyForecast> forecasts = new ArrayList<>();
+            for (JsonNode entry : timeseries) {
+                JsonNode time = entry.path("time");
+                JsonNode temperature = entry.path("data")
+                        .path("instant")
+                        .path("details")
+                        .path("air_temperature");
+                if (time.isTextual() && temperature.isNumber()) {
+                    forecasts.add(new HourlyForecast(
+                            Instant.parse(time.asText()).toString(),
+                            temperature.doubleValue()));
+                }
+            }
+            return forecasts;
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to parse MET Norway forecast", ex);
         }
     }
 }

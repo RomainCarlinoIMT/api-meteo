@@ -1,4 +1,6 @@
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/Coordinate.java
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/HourlyForecast.java
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/WeatherResponse.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/WeatherService.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/OpenMeteoClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/NominatimClient.java

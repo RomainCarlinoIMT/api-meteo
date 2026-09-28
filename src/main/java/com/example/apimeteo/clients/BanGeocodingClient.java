@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +26,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BanGeocodingClient implements GeocodingService 
 {
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    @Value("${ban.api.url:https://api-adresse.data.gouv.fr}")
+    private String apiUrl;
 
     @Override
     public Coordinate getCoordinate(String query)
     {
         String encodedAddress = URLEncoder.encode(query, StandardCharsets.UTF_8);
-        String url = String.format(Locale.US, "https://api-adresse.data.gouv.fr/search/?q=%s&limit=1", encodedAddress);
+        String url = String.format(Locale.US, "%s/search/?q=%s&limit=1", apiUrl, encodedAddress);
 
         HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -66,7 +69,7 @@ public class BanGeocodingClient implements GeocodingService
 
     private BanResponseDto parseResponse(String json)
     {
-        System.out.println("Tried to use function with : " + json);
+        System.out.println("(BAN) Tried to use function with : " + json);
         try 
         {
             return new com.fasterxml.jackson.databind.ObjectMapper().readValue(json, BanResponseDto.class);

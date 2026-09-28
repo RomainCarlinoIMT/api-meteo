@@ -3,6 +3,7 @@ package com.example.apimeteo.facades;
 import org.springframework.stereotype.Service;
 
 import com.example.apimeteo.models.Coordinate;
+import com.example.apimeteo.models.WeatherResponse;
 import com.example.apimeteo.services.GeocodingService;
 import com.example.apimeteo.services.WeatherService;
 
@@ -18,9 +19,13 @@ public class WeatherFacade
         this.mWeatherService = weatherService;
     }
 
-    public String getWeatherData(String address) 
+    public WeatherResponse getWeatherData(String address)
     {
         Coordinate coords = mGeocodingService.getCoordinate(address);
-        return mWeatherService.getForecast(coords.getLatitude(), coords.getLongitude());
+        return new WeatherResponse(
+                address,
+                coords.getLatitude(),
+                coords.getLongitude(),
+                mWeatherService.getForecast(coords.getLatitude(), coords.getLongitude()));
     }
 }
