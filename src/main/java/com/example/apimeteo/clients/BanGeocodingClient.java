@@ -18,12 +18,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.example.apimeteo.models.Coordinate;
-import com.example.apimeteo.services.GeocodingService;
+import com.example.apimeteo.services.GeocodingProvider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Component
 @ConditionalOnProperty(name = "geo.provider", havingValue = "ban")
-public class BanGeocodingClient implements GeocodingService 
+public class BanGeocodingClient implements GeocodingProvider
 {
     private final HttpClient httpClient = HttpClient.newHttpClient();
     @Value("${ban.api.url:https://api-adresse.data.gouv.fr}")

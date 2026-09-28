@@ -12,11 +12,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.example.apimeteo.models.Coordinate;
-import com.example.apimeteo.services.GeocodingService;
+import com.example.apimeteo.services.GeocodingProvider;
 
 @Component
 @ConditionalOnProperty(name = "geo.provider", havingValue = "nominatim", matchIfMissing = true)
-public class NominatimClient implements GeocodingService
+public class NominatimClient implements GeocodingProvider
 {
     private final HttpClient mHttpClient = HttpClient.newHttpClient();
     private static final String URL = "https://nominatim.openstreetmap.org/search?q=";

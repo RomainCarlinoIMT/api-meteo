@@ -45,6 +45,25 @@ public class WeatherIntegrationTest {
             .andExpect(content().json("{\"address\":\"Alès\",\"latitude\":44.12,\"longitude\":4.08,\"hourly\":[{\"time\":\"2025-06-10T14:00:00Z\",\"temperatureCelsius\":24.3}]}", true));
     }
 
+            @Test
+            public void testRepeatedAddressCallsGeocoderOnce() throws Exception {
+            WireMock.stubFor(WireMock.get(WireMock.urlPathMatching("/search.*"))
+                .willReturn(WireMock.aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withBody("{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[4.08,44.12]},\"properties\":{\"label\":\"Cache Test\"}}]}")));
+            WireMock.stubFor(WireMock.get(WireMock.urlPathMatching("/weather.*"))
+                .willReturn(WireMock.aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withBody("{\"properties\":{\"timeseries\":[]}}")));
+
+            mockMvc.perform(get("/weather").param("address", "Cache Test"))
+                .andExpect(status().isOk());
+            mockMvc.perform(get("/weather").param("address", "cache test"))
+                .andExpect(status().isOk());
+
+            WireMock.verify(1, WireMock.getRequestedFor(WireMock.urlPathMatching("/search.*")));
+            }
+
     @Test
     public void testGetWeatherDemoDoesNotCallProviders() throws Exception {
         mockMvc.perform(get("/weather").param("address", "Alès").param("demo", "true"))

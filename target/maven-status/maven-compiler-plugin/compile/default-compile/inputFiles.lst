@@ -1,3 +1,4 @@
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/GeocodingProvider.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/Coordinate.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/WeatherDataSourceFactory.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/HourlyForecast.java
@@ -8,6 +9,7 @@
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/NominatimClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/GeocodingService.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/controllers/WeatherController.java
+/home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/CachedGeocodingService.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/clients/MetNorwayWeatherClient.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/services/LiveWeatherDataService.java
 /home/rcarlino/Documents/projets/api-meteo/src/main/java/com/example/apimeteo/models/WeatherResponse.java
