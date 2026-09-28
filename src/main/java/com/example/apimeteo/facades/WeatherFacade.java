@@ -2,30 +2,21 @@ package com.example.apimeteo.facades;
 
 import org.springframework.stereotype.Service;
 
-import com.example.apimeteo.models.Coordinate;
 import com.example.apimeteo.models.WeatherResponse;
-import com.example.apimeteo.services.GeocodingService;
-import com.example.apimeteo.services.WeatherService;
+import com.example.apimeteo.services.WeatherDataSourceFactory;
 
 @Service
 public class WeatherFacade 
 {
-    private final GeocodingService mGeocodingService;
-    private final WeatherService mWeatherService;  
+    private final WeatherDataSourceFactory mWeatherDataSourceFactory;
     
-    public WeatherFacade(GeocodingService geocodingService, WeatherService weatherService)
+    public WeatherFacade(WeatherDataSourceFactory weatherDataSourceFactory)
     {
-        this.mGeocodingService = geocodingService;
-        this.mWeatherService = weatherService;
+        this.mWeatherDataSourceFactory = weatherDataSourceFactory;
     }
 
-    public WeatherResponse getWeatherData(String address)
+    public WeatherResponse getWeatherData(String address, boolean demo)
     {
-        Coordinate coords = mGeocodingService.getCoordinate(address);
-        return new WeatherResponse(
-                address,
-                coords.getLatitude(),
-                coords.getLongitude(),
-                mWeatherService.getForecast(coords.getLatitude(), coords.getLongitude()));
+        return mWeatherDataSourceFactory.getDataSource(demo).getWeatherData(address);
     }
 }

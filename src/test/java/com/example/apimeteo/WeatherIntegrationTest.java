@@ -46,6 +46,15 @@ public class WeatherIntegrationTest {
     }
 
     @Test
+    public void testGetWeatherDemoDoesNotCallProviders() throws Exception {
+        mockMvc.perform(get("/weather").param("address", "Alès").param("demo", "true"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"address\":\"Alès\",\"latitude\":44.1279,\"longitude\":4.0817,\"hourly\":[{\"time\":\"2025-06-10T14:00:00Z\",\"temperatureCelsius\":24.3}]}", true));
+
+        WireMock.verify(0, WireMock.anyRequestedFor(WireMock.anyUrl()));
+    }
+
+    @Test
     public void testGetWeatherMissingAddress() throws Exception {
         mockMvc.perform(get("/weather"))
                 .andExpect(status().isBadRequest());

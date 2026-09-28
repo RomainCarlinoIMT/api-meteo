@@ -16,7 +16,9 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public WeatherResponse getWeather(@RequestParam("address") String address) {
-        return weatherFacade.getWeatherData(address);
+    public WeatherResponse getWeather(
+            @RequestParam("address") String address,
+            @RequestParam(name = "demo", defaultValue = "false") boolean demo) {
+        return weatherFacade.getWeatherData(address, demo);
     }
 }
